@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        unordered_set<int> s; 
+        for(int i = 0; i < nums.size(); i++){
+            s.insert(nums[i]); 
+        }
+
+        if(s.size() < nums.size()){
+            return true; 
+        }
+        return false;
+
+        // the above approach was a brute force approach.  
+
+
+        //  unordered_map<int,int> mp;
+        //   for(auto i : nums) mp[i]++;
+        //   bool flag = false;
+        //   for(auto i : mp){
+        //       if(i.second >= 2) return true;
+        //   }
+        //   return flag;
+
+    }
+};
