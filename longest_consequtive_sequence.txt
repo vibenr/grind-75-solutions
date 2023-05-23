@@ -1,0 +1,36 @@
+// approach: 
+/* Create a set to store all of the elements in the array.
+Iterate over the set, and for each element, check if its predecessor is in the set. If it is not, then the element is the start of a new consecutive subsequence.
+The longest consecutive subsequence is the one with the largest counter.
+*/
+
+
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        int n = nums.size(); 
+        if(n == 0) return 0; 
+
+        int longest = 1; 
+
+        unordered_set<int> st; 
+
+        for(auto number:nums){
+            st.insert(number); 
+        }
+
+        for(auto s:st){
+            if(st.find(s-1) == st.end()){
+                int count = 1; 
+                int x = s; 
+                while(st.find(x+1) != st.end()){
+                    count++; 
+                    x+=1; 
+                }
+                longest = max(count, longest); 
+            }
+        } 
+        return longest; 
+    }
+};
