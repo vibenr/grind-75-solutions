@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+
+        // brute force approach with complexity o(n^2)
+        // int res = 0; 
+        // for(int i = 0; i < nums.size(); i++){
+        //    int sum = nums[i]; 
+
+        //    if(sum == k)res++; 
+
+        //    for(int j = i+1; j < nums.size(); j++){
+        //        sum+= nums[i]; 
+        //        if(sum == k)res++; 
+        //    }
+        // }
+        // return res; 
+
+        // optimized approach of tc - o(N) sc - o(N)
+        /* in this method we maintain a prefix sum and find that prefix[i] - prefix[j] = k then it is sure that there is subarray between those index which gives sum of k. */
+
+        int n = nums.size(); 
+        int ans = 0; 
+        int prefix[n]; // make an prefix array to store prefix sum
+
+        prefix[0] = nums[0]; 
+
+        // making our prefix array 
+        for(int i = 1; i < n; i++){
+            prefix[i] = nums[i] + prefix[i-1]; 
+        }
+
+        unordered_map<int, int> mp; // declare an unordered map 
+
+        for(int i = 0; i < n; i++) // traverse from prefix arary
+        {
+            if(prefix[i] == k) ans++; 
+
+             // now, as we discussed find whether (prefix[i] - k) present in map or not
+             if(mp.find(prefix[i] - k) != mp.end())
+             {
+                 ans+= mp[prefix[i] - k]; // if yes then add it our answer
+             }
+             mp[prefix[i]]++; // put prefix sum into our map
+
+        }
+
+            return ans; 
+    }
+};
